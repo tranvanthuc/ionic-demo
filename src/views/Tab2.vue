@@ -1,28 +1,39 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Tab 2</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 2</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      
-      <ExploreContainer name="Tab 2 page" />
+    <ion-content>
+      <ion-icon :ios="logoApple" :md="logoAndroid"></ion-icon>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+<script>
+import { logoAndroid, logoApple } from "ionicons/icons";
+import { IonContent, IonPage, IonIcon } from "@ionic/vue";
+import { defineComponent } from "vue";
 
-export default  {
-  name: 'Tab2',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-}
+export default defineComponent({
+  name: "Icon",
+  components: {
+    IonContent,
+    IonPage,
+    IonIcon,
+  },
+
+  ionViewDidEnter() {
+    console.log("Home page did enter");
+  },
+  ionViewDidLeave() {
+    console.log("Home page did leave");
+  },
+  ionViewWillEnter() {
+    console.log("Home page will enter");
+  },
+  ionViewWillLeave() {
+    console.log("Home page will leave");
+  },
+
+  setup() {
+    return { logoAndroid, logoApple };
+  },
+});
 </script>

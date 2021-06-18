@@ -11,18 +11,72 @@
           <ion-title size="large">Tab 1</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <ExploreContainer name="Tab 1 page" />
+      <!-- list -->
+      <todo-list :todos="todos" />
     </ion-content>
+
+    <ion-footer>
+      <ion-toolbar>
+        <ion-input
+          placeholder="Enter todo"
+          v-model="content"
+          @keyup.enter="addTodo"
+        ></ion-input>
+        <ion-button slot="end" @click="addTodo">Add</ion-button>
+      </ion-toolbar>
+    </ion-footer>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import {
+  IonPage,
+  IonHeader,
+  IonTitle,
+  IonContent,
+  IonFooter,
+  IonToolbar,
+  IonButton,
+  IonInput,
+} from "@ionic/vue";
+import TodoList from "./components/TodosList.vue";
+import { defineComponent } from "vue";
+import { createNamespacedHelpers } from "vuex";
+import { ACTIONS } from "@/store/todos/actions";
 
-export default  {
-  name: 'Tab1',
-  components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-}
+const { mapActions } = createNamespacedHelpers("todos");
+
+export default defineComponent({
+  name: "Tab1",
+  components: {
+    TodoList,
+    IonHeader,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonFooter,
+    IonToolbar,
+    IonButton,
+    IonInput,
+  },
+
+  data() {
+    return {
+      todos: [],
+      content: "",
+    };
+  },
+
+  methods: {
+    ...mapActions([ACTIONS.ADD_TODO]),
+    addTodo() {
+      const todo = {
+        id: this.todos.length,
+        content: this.content,
+      };
+      this.ADD_TODO(todo);
+      this.content = "";
+    },
+  },
+});
 </script>
