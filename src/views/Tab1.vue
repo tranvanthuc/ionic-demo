@@ -38,6 +38,9 @@ import {
   IonToolbar,
   IonButton,
   IonInput,
+
+  // controller,
+  alertController,
 } from "@ionic/vue";
 import TodoList from "./components/TodosList.vue";
 import { defineComponent } from "vue";
@@ -69,13 +72,30 @@ export default defineComponent({
 
   methods: {
     ...mapActions([ACTIONS.ADD_TODO]),
+    async alertValidate() {
+      const alert = await alertController.create({
+        header: "Alert!",
+        message: "<strong>Please enter todo!</strong>",
+        buttons: [
+          {
+            text: "Okay",
+          },
+        ],
+      });
+      return alert.present();
+    },
     addTodo() {
-      const todo = {
-        id: this.todos.length,
-        content: this.content,
-      };
-      this.ADD_TODO(todo);
-      this.content = "";
+      if (this.content === "") {
+        this.alertValidate();
+      } else {
+        const todo = {
+          id: this.todos.length,
+          content: this.content,
+        };
+
+        this.ADD_TODO(todo);
+        this.content = "";
+      }
     },
   },
 });
