@@ -1,43 +1,31 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw } from "vue-router";
-import Tabs from "../views/Tabs.vue";
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/",
-    redirect: "/login",
-  },
-  {
-    path: "/tabs/",
-    component: Tabs,
-    children: [
-      {
-        path: "",
-        redirect: "/tabs/tab1",
-      },
-      {
-        path: "tab1",
-        component: () => import("@/views/Tab1.vue"),
-      },
-      {
-        path: "tab2",
-        component: () => import("@/views/Tab2.vue"),
-      },
-      {
-        path: "tab3",
-        component: () => import("@/views/Tab3.vue"),
-      },
-    ],
-  },
-  {
-    path: "/login",
-    component: () => import("@/views/Login.vue"),
-  },
-];
+import routes from "./routes";
+import storage from "@/libs/storage";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  const requireAuth = to.matched.some((record) => record.meta.requireAuth);
+  const requireNotAuth = to.matched.some(
+    (record) => record.meta.requireNotAuth
+  );
+
+  // const token = storage.getItem("token");
+  const token = await storage.getItem("token");
+  console.log(token);
+  if (token) {
+    if (requireNotAuth) {
+      next({ name: "home" });
+      return;
+    }
+  } else if (requireAuth) {
+    next({ name: "login" });
+    return;
+  }
+  next();
 });
 
 export default router;

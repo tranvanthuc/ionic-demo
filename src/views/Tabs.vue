@@ -38,6 +38,7 @@ import {
 import { defineComponent } from "vue";
 import { ellipse, square, triangle, logOut } from "ionicons/icons";
 import { useRouter } from "vue-router";
+import storage from "@/libs/storage";
 
 export default defineComponent({
   name: "Tabs",
@@ -63,7 +64,7 @@ export default defineComponent({
 
   methods: {
     logout() {
-      localStorage.removeItem("token");
+      storage.removeItem("token");
       this.router.push("/login");
     },
   },
