@@ -2,8 +2,8 @@
   <ion-list>
     <ion-item v-for="(todo, index) in list" :key="index">
       <ion-checkbox
-        color="primary"
         v-model="todo.isDone"
+        color="primary"
         @ionChange="onChangeStatus"
       ></ion-checkbox>
       <ion-label :class="{ isDone: todo.isDone }">{{ todo.content }}</ion-label>

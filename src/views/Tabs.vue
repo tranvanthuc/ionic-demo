@@ -16,6 +16,11 @@
           <ion-icon :icon="square" />
           <ion-label>Tab 3</ion-label>
         </ion-tab-button>
+
+        <ion-tab-button tab="logout" @click="logout">
+          <ion-icon :icon="logOut" />
+          <ion-label>Logout</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
@@ -31,17 +36,36 @@ import {
   IonPage,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { ellipse, square, triangle } from "ionicons/icons";
+import { ellipse, square, triangle, logOut } from "ionicons/icons";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Tabs",
-  components: { IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage },
+  components: {
+    IonLabel,
+    IonTabs,
+    IonTabBar,
+    IonTabButton,
+    IonIcon,
+    IonPage,
+  },
   setup() {
+    const router = useRouter();
+
     return {
       ellipse,
       square,
       triangle,
+      logOut,
+      router,
     };
+  },
+
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.router.push("/login");
+    },
   },
 });
 </script>

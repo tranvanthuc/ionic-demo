@@ -6,11 +6,6 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 1</ion-title>
-        </ion-toolbar>
-      </ion-header>
       <!-- list -->
       <todo-list :todos="todos" />
     </ion-content>
@@ -84,9 +79,9 @@ export default defineComponent({
       });
       return alert.present();
     },
-    addTodo() {
+    async addTodo() {
       if (this.content === "") {
-        this.alertValidate();
+        await this.alertValidate();
       } else {
         const todo = {
           id: this.todos.length,

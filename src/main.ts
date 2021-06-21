@@ -24,8 +24,12 @@ import "@ionic/vue/css/display.css";
 import "./theme/variables.css";
 
 import store from "./store";
+import { DefaultApolloClient } from "@vue/apollo-composable";
+
+import { apolloClient } from "./apollo";
 
 const app = createApp(App)
+  .provide(DefaultApolloClient, apolloClient)
   .use(store)
   .use(IonicVue)
   .use(router);
