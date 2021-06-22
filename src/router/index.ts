@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import routes from "./routes";
-import storage from "@/libs/storage";
+import store from "@/store/index";
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
@@ -13,9 +13,7 @@ router.beforeEach(async (to, from, next) => {
     (record) => record.meta.requireNotAuth
   );
 
-  // const token = storage.getItem("token");
-  const token = await storage.getItem("token");
-  console.log(token);
+  const token = store.getters["auth/token"];
   if (token) {
     if (requireNotAuth) {
       next({ name: "home" });

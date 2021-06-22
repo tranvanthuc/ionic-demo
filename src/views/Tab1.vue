@@ -14,7 +14,7 @@
       <ion-toolbar>
         <ion-input
           placeholder="Enter todo"
-          v-model="content"
+          v-model.trim="content"
           @keyup.enter="addTodo"
         ></ion-input>
         <ion-button slot="end" @click="addTodo">Add</ion-button>

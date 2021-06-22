@@ -42,7 +42,9 @@
               {{ passwordError }}
             </p>
           </ion-text>
-          <ion-button expand="full" @click="login">Login</ion-button>
+          <ion-button class="ion-margin-top" expand="full" @click="login"
+            >Login</ion-button
+          >
         </ion-card-content>
       </ion-card>
     </ion-content>
@@ -60,7 +62,6 @@ import {
   IonHeader,
   IonItem,
   IonToolbar,
-  toastController,
   IonPage,
   IonText,
   IonCard,
@@ -68,18 +69,19 @@ import {
   IonCardHeader,
   IonCardTitle,
 } from "@ionic/vue";
-import { useMutation } from "@vue/apollo-composable";
-import { loginDashboard } from "@/apollo/graphql";
 import { useRouter } from "vue-router";
 import { useForm, useField } from "vee-validate";
 import * as yup from "yup";
-import storage from "@/libs/storage";
+import { createNamespacedHelpers } from "vuex";
+import { ACTIONS } from "@/store/auth/actions";
+import toast from "@/mixins/toast";
+
+const { mapActions, mapGetters } = createNamespacedHelpers("auth");
 
 export default defineComponent({
   name: "Login",
 
   setup() {
-    const { mutate: signIn } = useMutation(loginDashboard);
     const router = useRouter();
 
     // Define a validation schema
@@ -106,7 +108,6 @@ export default defineComponent({
     );
 
     return {
-      signIn,
       router,
       email,
       emailError,
@@ -115,6 +116,12 @@ export default defineComponent({
       formValidate,
       resetForm,
     };
+  },
+
+  mixins: [toast],
+
+  computed: {
+    ...mapGetters(["token", "loading"]),
   },
 
   components: {
@@ -135,18 +142,19 @@ export default defineComponent({
   },
 
   methods: {
+    ...mapActions([ACTIONS.LOGIN]),
     async login() {
       const formValid = await this.formValidate();
       if (formValid.valid) {
-        const { data } = await this.signIn({
+        const params = {
           // email: "demo@thetreedots.com",
-          identity: this.email,
+          // identity: this.email,
+          identity: "demo@thetreedots.com",
           password: "747b7a79787f7e7d",
-        });
+        };
+        await this.LOGIN(params);
 
-        if (data.signIn) {
-          await storage.setItem("token", data.signIn.token);
-
+        if (!this.loading) {
           this.resetForm({
             values: {
               email: "",
@@ -159,15 +167,6 @@ export default defineComponent({
           this.openToast("Email or password wrong!");
         }
       }
-    },
-
-    async openToast(message) {
-      const toast = await toastController.create({
-        message,
-        duration: 2000,
-        position: "top",
-      });
-      return toast.present();
     },
   },
 });

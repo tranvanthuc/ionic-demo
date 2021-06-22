@@ -5,7 +5,6 @@ localStorage.create();
 
 const storage = {
   setItem: async (i: string, v: string): Promise<any> => {
-    console.log(v);
     await localStorage.set(i, v);
   },
   getItem(i: string): Promise<any> {

@@ -38,7 +38,10 @@ import {
 import { defineComponent } from "vue";
 import { ellipse, square, triangle, logOut } from "ionicons/icons";
 import { useRouter } from "vue-router";
-import storage from "@/libs/storage";
+import { createNamespacedHelpers } from "vuex";
+import { ACTIONS } from "@/store/auth/actions";
+
+const { mapActions } = createNamespacedHelpers("auth");
 
 export default defineComponent({
   name: "Tabs",
@@ -63,9 +66,9 @@ export default defineComponent({
   },
 
   methods: {
+    ...mapActions([ACTIONS.LOGOUT]),
     logout() {
-      storage.removeItem("token");
-      this.router.push("/login");
+      this.LOGOUT();
     },
   },
 });

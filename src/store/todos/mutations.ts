@@ -15,9 +15,8 @@ const mutations: MutationTree<State> = {
   [MUTATIONS.DELETE_TODO](state, index: number) {
     state.list.splice(index, 1);
   },
-  [MUTATIONS.EDIT_TODO](state, todo: Todo) {
-    const ogIndex = state.list.findIndex((t) => t.id === todo.id);
-    state.list[ogIndex] = todo;
+  [MUTATIONS.EDIT_TODO](state, { todo, index }) {
+    state.list[index] = todo;
   },
 };
 

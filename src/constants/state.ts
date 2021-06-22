@@ -1,8 +1,8 @@
-
 export interface DefaultState {
-  status: boolean,
-  loading: boolean,
-  message: string,
+  status: boolean;
+  loading: boolean;
+  message: string;
+  error: null;
 }
 
 export const DEFAULT_GETTERS = {
@@ -13,7 +13,7 @@ export const DEFAULT_GETTERS = {
 
 export const DEFAULT_STATE = {
   status: false,
-  error: null,
-  message: "",
   loading: false,
+  message: "",
+  error: null,
 };

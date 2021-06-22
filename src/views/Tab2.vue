@@ -1,53 +1,79 @@
 <template>
   <ion-page>
-    <ion-content class="ion-padding">
-      <ion-button @click="openToast">Open Toast</ion-button>
-      <ion-button @click="openToastOptions">Open Toast: Options</ion-button>
-    </ion-content>
+    <!-- Default Label -->
+    <ion-label>Label</ion-label>
+
+    <!-- Label Colors -->
+    <ion-label color="primary">Primary Label</ion-label>
+    <ion-label color="secondary">Secondary Label</ion-label>
+    <ion-label color="danger">Danger Label</ion-label>
+    <ion-label color="light">Light Label</ion-label>
+    <ion-label color="dark">Dark Label</ion-label>
+
+    <!-- Item Labels -->
+    <ion-item>
+      <ion-label>Default Item</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="ion-text-wrap">
+        Multi-line text that should wrap when it is too long to fit on one line
+        in the item.
+      </ion-label>
+    </ion-item>
+
+    <!-- Input Labels -->
+    <ion-item>
+      <ion-label>Default Input</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">Fixed</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Floating</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Stacked</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Toggle</ion-label>
+      <ion-toggle slot="end" checked></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox slot="start" checked></ion-checkbox>
+      <ion-label>Checkbox</ion-label>
+    </ion-item>
   </ion-page>
 </template>
 
 <script>
-import { IonButton, IonContent, IonPage, toastController } from "@ionic/vue";
+import {
+  IonCheckbox,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonToggle,
+  IonPage,
+} from "@ionic/vue";
+import { defineComponent } from "vue";
 
-export default {
-  components: { IonButton, IonContent, IonPage },
-  methods: {
-    async openToast() {
-      const toast = await toastController.create({
-        message: "Your settings have been saved.",
-        duration: 2000,
-      });
-      return toast.present();
-    },
-    async openToastOptions() {
-      const toast = await toastController.create({
-        header: "Toast header",
-        message: "Click to Close",
-        position: "top",
-        buttons: [
-          {
-            side: "start",
-            icon: "star",
-            text: "Favorite",
-            handler: () => {
-              console.log("Favorite clicked");
-            },
-          },
-          {
-            text: "Done",
-            role: "cancel",
-            handler: () => {
-              console.log("Cancel clicked");
-            },
-          },
-        ],
-      });
-      await toast.present();
-
-      const { role } = await toast.onDidDismiss();
-      console.log("onDidDismiss resolved with role", role);
-    },
+export default defineComponent({
+  components: {
+    IonCheckbox,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonToggle,
+    IonPage,
   },
-};
+});
 </script>
