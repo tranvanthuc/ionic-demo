@@ -36,7 +36,6 @@ import {
 } from "@ionic/vue";
 import { createNamespacedHelpers } from "vuex";
 import { ACTIONS } from "@/store/todos/actions";
-import { Todo } from "@/store/todos/index";
 import toast from "@/mixins/toast";
 
 const { mapActions } = createNamespacedHelpers("todos");
@@ -53,7 +52,7 @@ export default defineComponent({
   },
   props: {
     todo: {
-      type: Todo,
+      type: Object,
       required: true,
     },
     index: {

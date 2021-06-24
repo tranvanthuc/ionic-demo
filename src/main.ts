@@ -22,9 +22,12 @@ import "@ionic/vue/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import "./theme/utils.css";
 
 import store from "./store";
 import { DefaultApolloClient } from "@vue/apollo-composable";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { IonIcon } from "@ionic/vue";
 
 import { apolloClient } from "./apollo";
 
@@ -33,6 +36,9 @@ const app = createApp(App)
   .use(store)
   .use(IonicVue)
   .use(router);
+
+app.component("font-icon", FontAwesomeIcon);
+app.component("ion-icon", IonIcon);
 
 router.isReady().then(() => {
   app.mount("#app");

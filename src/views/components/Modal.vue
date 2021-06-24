@@ -47,7 +47,6 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { close } from "ionicons/icons";
-import { Todo } from "@/store/todos/index";
 import { createNamespacedHelpers } from "vuex";
 import { ACTIONS } from "@/store/todos/actions";
 import { useForm, useField } from "vee-validate";
@@ -94,7 +93,7 @@ export default defineComponent({
 
   props: {
     todo: {
-      type: Todo,
+      type: Object,
       required: true,
     },
     index: {

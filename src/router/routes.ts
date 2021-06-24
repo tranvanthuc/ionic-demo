@@ -1,14 +1,21 @@
 import { RouteRecordRaw } from "vue-router";
 import Tabs from "../views/Tabs.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     name: "home",
     path: "/",
-    redirect: "/tabs",
+    component: DefaultLayout,
     meta: {
       requireAuth: true,
     },
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/Home.vue"),
+      },
+    ],
   },
   {
     meta: {
