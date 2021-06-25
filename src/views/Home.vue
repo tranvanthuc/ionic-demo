@@ -27,19 +27,16 @@
       <slides-cate :cate="cate" @choose-cate="chooseCate" />
 
       <!-- slides images -->
-      <slides-image></slides-image>
+      <slides-image />
+
+      <!-- product list -->
+      <product-list />
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import { ellipse, square, triangle, logOut, close } from "ionicons/icons";
-import history from "@/assets/home/history.svg";
-import all from "@/assets/home/all.svg";
-import newest from "@/assets/home/newest.svg";
-import quoted from "@/assets/home/quoted.svg";
-import noImage from "@/assets/no_image.png";
 import {
   IonPage,
   IonToolbar,
@@ -58,6 +55,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import SlidesCate from "./components/SlidesCate.vue";
 import SlidesImage from "./components/SlidesImage.vue";
+import ProductList from "./components/ProductList.vue";
 
 library.add(faFilter, faBuilding, faStore, faBell);
 
@@ -75,6 +73,7 @@ export default defineComponent({
     // components
     SlidesCate,
     SlidesImage,
+    ProductList,
   },
 
   data() {
@@ -87,25 +86,6 @@ export default defineComponent({
     chooseCate(cate) {
       this.cate = cate;
     },
-  },
-
-  setup() {
-    // Optional parameters to pass to the swiper instance. See http://idangero.us/swiper/api/ for valid options.
-
-    return {
-      // images
-      history,
-      newest,
-      quoted,
-      all,
-      noImage,
-
-      close,
-      ellipse,
-      square,
-      triangle,
-      logOut,
-    };
   },
 });
 </script>
