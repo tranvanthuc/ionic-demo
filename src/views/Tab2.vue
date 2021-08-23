@@ -1,79 +1,121 @@
 <template>
-  <ion-page>
-    <!-- Default Label -->
-    <ion-label>Label</ion-label>
+  <!-- Data to display after skeleton screen -->
 
-    <!-- Label Colors -->
-    <ion-label color="primary">Primary Label</ion-label>
-    <ion-label color="secondary">Secondary Label</ion-label>
-    <ion-label color="danger">Danger Label</ion-label>
-    <ion-label color="light">Light Label</ion-label>
-    <ion-label color="dark">Dark Label</ion-label>
+  <!-- Skeleton screen -->
+  <div v-if="!data">
+    <div class="ion-padding custom-skeleton">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
 
-    <!-- Item Labels -->
-    <ion-item>
-      <ion-label>Default Item</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label class="ion-text-wrap">
-        Multi-line text that should wrap when it is too long to fit on one line
-        in the item.
-      </ion-label>
-    </ion-item>
-
-    <!-- Input Labels -->
-    <ion-item>
-      <ion-label>Default Input</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="fixed">Fixed</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Floating</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">Stacked</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Toggle</ion-label>
-      <ion-toggle slot="end" checked></ion-toggle>
-    </ion-item>
-
-    <ion-item>
-      <ion-checkbox slot="start" checked></ion-checkbox>
-      <ion-label>Checkbox</ion-label>
-    </ion-item>
-  </ion-page>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text
+          animated
+          style="width: 27px; height: 27px"
+          slot="start"
+        ></ion-skeleton-text>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </template>
+
+<style>
+/* Custom Skeleton Line Height and Margin */
+.custom-skeleton ion-skeleton-text {
+  line-height: 13px;
+}
+
+.custom-skeleton ion-skeleton-text:last-child {
+  margin-bottom: 5px;
+}
+</style>
 
 <script>
 import {
-  IonCheckbox,
-  IonInput,
+  IonAvatar,
   IonItem,
   IonLabel,
-  IonToggle,
-  IonPage,
+  IonList,
+  IonListHeader,
+  IonSkeletonText,
+  IonThumbnail,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   components: {
-    IonCheckbox,
-    IonInput,
+    IonAvatar,
     IonItem,
     IonLabel,
-    IonToggle,
-    IonPage,
+    IonList,
+    IonListHeader,
+    IonSkeletonText,
+    IonThumbnail,
+  },
+  setup() {
+    const data = ref();
+
+    setTimeout(() => {
+      data.value = {
+        heading: "Normal text",
+        para1: "Lorem ipsum dolor sit amet, consectetur",
+        para2: "adipiscing elit.",
+      };
+    }, 10000);
+
+    return { data };
   },
 });
 </script>
